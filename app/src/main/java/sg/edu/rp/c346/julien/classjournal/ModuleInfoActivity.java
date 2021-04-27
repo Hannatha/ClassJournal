@@ -1,10 +1,12 @@
 package sg.edu.rp.c346.julien.classjournal;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,6 +19,8 @@ public class ModuleInfoActivity extends AppCompatActivity {
     ListView lv;
     DailyAdapter aa;
     ArrayList<DailyCA> dca;
+    Button info;
+    Button email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,8 @@ public class ModuleInfoActivity extends AppCompatActivity {
         Module module = (Module) intent.getSerializableExtra("module");
 
         lv = (ListView) this.findViewById(R.id.lvDaily);
+        info = findViewById(R.id.btnInfo);
+        email=findViewById(R.id.btnEmail);
 
         dca = new ArrayList<DailyCA>();
         dca.add(new DailyCA("B", 1));
@@ -35,8 +41,41 @@ public class ModuleInfoActivity extends AppCompatActivity {
         aa = new DailyAdapter(this, R.layout.row, dca);
         lv.setAdapter(aa);
 
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Intent to display data
+                Intent rpIntent = new Intent(Intent.ACTION_VIEW);
+                // Set the URL to be used.
+                rpIntent.setData(Uri.parse("https://www.rp.edu.sg/soi/full-time-diplomas/details/diploma-in-digital-design-and-development"));
+                startActivity(rpIntent);
+            }
+        });
+        email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //The action you want intent to do;
+                //ACTION_SEND is used to indicate sending text
+                Intent email = new Intent(Intent.ACTION_SEND);
+                // Put essentials like email address, subject& bodytext
+                email.putExtra(Intent.EXTRA_EMAIL,new String[]{"jason_lim@rp.edu.sg"});
 
+                String text = "";
+                text = "Hi faci, \n" +"I am your student \n" +"Please see my remarks so far, thank you! \n ";
+                for(int i =0;i<dca.size();i++){
 
+                    text += "Week " + dca.get(i).getWeek() + ": DG: " +dca.get(i).getDgGrade() + "\n";
+                    email.putExtra(Intent.EXTRA_TEXT, text);
+                }
+
+                // This MIME type indicates email
+                email.setType("message/rfc822");
+                // createChooser shows user a list of app that can handle
+                // this MIME type, which is, email
+                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+
+            }
+        });
 
 
 

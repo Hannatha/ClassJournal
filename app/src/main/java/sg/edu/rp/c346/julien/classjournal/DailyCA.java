@@ -5,12 +5,10 @@ import java.io.Serializable;
 public class DailyCA implements Serializable {
 
     private String dgGrade;
-    private String moduleCode;
     private int week;
 
-    public DailyCA(String dgGrade, String moduleCode, int week) {
+    public DailyCA(String dgGrade, int week) {
         this.dgGrade = dgGrade;
-        this.moduleCode = moduleCode;
         this.week = week;
     }
 
@@ -20,14 +18,6 @@ public class DailyCA implements Serializable {
 
     public void setDgGrade(String dgGrade) {
         this.dgGrade = dgGrade;
-    }
-
-    public String getModuleCode() {
-        return moduleCode;
-    }
-
-    public void setModuleCode(String moduleCode) {
-        this.moduleCode = moduleCode;
     }
 
     public int getWeek() {

@@ -3,6 +3,7 @@ package sg.edu.rp.c346.julien.classjournal;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +20,7 @@ public class ModuleInfoActivity extends AppCompatActivity {
     ListView lv;
     DailyAdapter aa;
     ArrayList<DailyCA> dca;
-    Button info;
+    Button info, btnAdd;
     Button email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class ModuleInfoActivity extends AppCompatActivity {
         lv = (ListView) this.findViewById(R.id.lvDaily);
         info = findViewById(R.id.btnInfo);
         email=findViewById(R.id.btnEmail);
-
+        btnAdd = (Button) findViewById(R.id.btnAddWeek);
         dca = new ArrayList<DailyCA>();
         dca.add(new DailyCA("B", 1));
         dca.add(new DailyCA("C", 2));
@@ -77,7 +78,39 @@ public class ModuleInfoActivity extends AppCompatActivity {
             }
         });
 
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(ModuleInfoActivity.this, AddInfoActivity.class);
+                int weekNumber = dca.size();
+                i.putExtra("currWk", weekNumber);
+                startActivity(i);
+
+            }
+        });
+
+    }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d("TAG", String.valueOf(resultCode));
+        // Only handle when 2nd activity closed normally
+        //  and data contains something
+        if(resultCode == RESULT_OK){
+
+            if (data != null) {
+                int newWeek = data.getIntExtra("newWkNum",0);
+                String newGrade = data.getStringExtra("gradeSelected");
+                dca.add(new DailyCA(newGrade, newWeek));
+                notifyAll();
+
+
+
+            }
+        }
     }
 }

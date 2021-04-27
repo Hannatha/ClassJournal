@@ -15,17 +15,17 @@ import java.util.ArrayList;
 public class ModuleInfoActivity extends AppCompatActivity {
 
     ListView lv;
-    ArrayAdapter aa;
+    DailyAdapter aa;
     ArrayList<DailyCA> dca;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_module_info);
 
         Intent intent = getIntent();
         Module module = (Module) intent.getSerializableExtra("module");
 
-        lv = (ListView) this.findViewById(R.id.listViewModule);
+        lv = (ListView) this.findViewById(R.id.lvDaily);
 
         dca = new ArrayList<DailyCA>();
         dca.add(new DailyCA("B", 1));

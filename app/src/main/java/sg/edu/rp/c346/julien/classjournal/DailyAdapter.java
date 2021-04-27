@@ -32,7 +32,7 @@ public class DailyAdapter extends ArrayAdapter<DailyCA> {
 
         DailyCA currentCA = dailyCA.get(position);
         tvWeek.setText("Week: " + (position + 1));
-        tvDG.setText(currentCA.getDgGrade());
+        tvGrade.setText(currentCA.getDgGrade());
 
         return rowView;
     }

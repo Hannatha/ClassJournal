@@ -1,6 +1,8 @@
 package sg.edu.rp.c346.julien.classjournal;
 
-public class Module {
+import java.io.Serializable;
+
+public class Module implements Serializable {
 
     private String moduleCode;
     private String moduleName;

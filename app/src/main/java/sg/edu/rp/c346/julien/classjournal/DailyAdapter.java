@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class DailyAdapter extends ArrayAdapter<DailyCA> {
     private ArrayList<DailyCA> dailyCA;
     private Context context;
-    private TextView tvDG, tvGrade;
+    private TextView tvWeek, tvDG, tvGrade;
 
     public DailyAdapter(Context context, int resource, ArrayList<DailyCA> objects){
         super(context, resource, objects);
@@ -27,13 +27,15 @@ public class DailyAdapter extends ArrayAdapter<DailyCA> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.row, parent, false);
 
+        tvWeek = (TextView) rowView.findViewById(R.id.tvweek);
         tvDG = (TextView) rowView.findViewById(R.id.tvDG);
         tvGrade = (TextView) rowView.findViewById(R.id.tvGrade);
 
-
         DailyCA currentCA = dailyCA.get(position);
+        tvWeek.setText("week " + position);
         tvDG.setText(currentCA.getDgGrade());
         tvGrade.setText(currentCA.getModuleCode());
 
+        return rowView;
     }
 }
